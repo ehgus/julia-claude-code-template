@@ -1,15 +1,13 @@
-*
-# Template files
-!README.md
-!CLAUDE-TEMPLATE.md
-!setup_project.jl
+.vscode/
 
-# .claude directory and all contents
-!.claude/
-!.claude/**
+# CLAUDE.md
+CLAUDE.md
 
-# license
-!LICENSE
+# .claude directory axcept for .claude/agents/
+.claude/*
+!.claude/agents
 
-# .gitignore itself
-!.gitignore
+# dev-note: Continously changing space 
+# resources: data repository
+dev-note/
+resources/

@@ -52,13 +52,17 @@ function create_directory_structure(package_name::String)
     # Create Julia package using Pkg.generate (without .jl extension)
     Pkg.generate(package_name)
     
-    renamed_package_namae = mv(package_name, package_name*".jl")
+    renamed_package_name = mv(package_name, package_name*".jl")
     # Create additional package directories
     package_dirs = [
-        "$renamed_package_namae/test",
-        "$renamed_package_namae/benchmark", 
-        "$renamed_package_namae/docs/src"
+        "$renamed_package_name/test",
+        "$renamed_package_name/benchmark", 
+        "$renamed_package_name/docs/src"
     ]
+
+    # Initialize git
+    run(`git init design/`)
+    run(`git init $renamed_package_name/`)
     
     for dir in package_dirs
         mkpath(dir)

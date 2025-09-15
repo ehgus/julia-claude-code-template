@@ -1,0 +1,15 @@
+*
+# Template files
+!README.md
+!CLAUDE-TEMPLATE.md
+!setup_project.jl
+
+# .claude directory and all contents
+!.claude/
+!.claude/**
+
+# license
+!LICENSE
+
+# .gitignore itself
+!.gitignore

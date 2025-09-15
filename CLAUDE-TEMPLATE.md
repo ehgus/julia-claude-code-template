@@ -103,19 +103,16 @@ project-root/
 ### Cross-Session Continuity Protocol
 
 #### Session Startup Routine
-1. **Read this CLAUDE.md** for project overview and current status
-2. **Check `dev-note/session-log.md`** for last session context
-3. **Review your agent-specific notes** in dev-note/
-4. **Reference design/ outputs** if needed for requirements
-5. **Explore relevant resources/** for additional context
-6. **Begin work** with full context restored
+1. **Check `dev-note/session-log.md`** for last session context
+2. **Review your agent-specific notes** in dev-note/
+3. **Reference design/ outputs** if needed for requirements
+4. **Explore relevant resources/** for additional context
+5. **Begin work** with full context restored
 
 #### Session Ending Routine
 1. **Update your agent-specific dev-note/ file** with progress and insights
 2. **Update `dev-note/session-log.md`** with session summary
-3. **Update this CLAUDE.md** with current status and next steps
-4. **Document useful resources** discovered during work
-5. **Commit changes** to preserve state
+3. **Document useful resources** discovered during work if needed
 
 #### Cross-Agent Communication
 - Leave notes for other agents in your dev-note/ files
@@ -183,32 +180,6 @@ project-root/
 ### API Design Principles
 [Specific guidance for this project's API design]
 
-## Git Workflow
-
-### Repository Management
-- **design/**: Private repository (never public)
-- **resources/**: Private repository (reference materials & code examples)
-- **dev-note/**: Private repository (development memory)
-- **PackageName.jl/**: Public repository (future Julia General Registry)
-
-### Commit Message Convention
-```bash
-# Design phase (private repo)
-design(jl-explorer): ecosystem analysis for [feature]
-design(jl-critic): identify claude-code compatibility issues  
-design(jl-architect): finalize API structure
-
-# Development phase (public repo)
-implement: add core [functionality]
-test: comprehensive test suite for [feature]
-benchmark: performance measurements for [feature]  
-docs: Documenter.jl setup and API documentation
-
-# Development memory (private repo)
-dev-memory: update [agent] notes and session log
-resources: add [type] resources for [purpose]
-```
-
 ## Notes for Claude Code Usage
 
 ### Context Management
@@ -235,4 +206,3 @@ resources: add [type] resources for [purpose]
 ---
 
 **Last Updated**: [Date]
-**Project Status**: [Current phase and readiness level]

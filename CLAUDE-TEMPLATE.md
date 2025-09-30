@@ -125,12 +125,6 @@ project-root/
 - Reference shared resources/ for common understanding
 - Coordinate through dev-note/ rather than direct file conflicts
 
-## Current Status
-- **Phase**: [Design/Implementation/Testing/Documentation]
-- **Last Session**: [date and summary of last work]
-- **Active Subagent**: [current working agent]
-- **Next Steps**: [immediate priorities]
-
 ### Recent Progress
 [Brief summary of recent accomplishments]
 
@@ -216,5 +210,3 @@ project-root/
 - Resources are used for validation and inspiration
 
 ---
-
-**Last Updated**: [Date]

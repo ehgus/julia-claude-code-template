@@ -157,6 +157,9 @@ project-root/
 - Design APIs that feel natural during interactive sessions
 - Ensure error messages are clear and actionable
 - Avoid excessive try-catch blocks that hide debugging information
+- **No premature error handling**: Do NOT add try-catch, fallbacks, or error recovery mechanisms unless explicitly requested
+- **Let errors surface**: Clear error messages and stack traces are more valuable than masked failures
+- Error handling features (memory profilers, sophisticated error recovery) should only be added when explicitly requested by the user
 
 ### Testing & Performance Strategy
 - Write comprehensive unit tests using Test.jl in test/ directory

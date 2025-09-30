@@ -80,6 +80,9 @@ project-root/
   - Primary: `[PackageName.jl]/test/` directory
   - Memory: `dev-note/tester-insights.md`
   - Resources: Can use `resources/data/test-cases/` for complex testing scenarios
+  - **Focus: Unit tests only** - integration tests belong elsewhere
+  - **Structure: Mirror src/ hierarchy** - Each `src/file.jl` has corresponding `test/file.jl`
+  - `runtests.jl` is the only exception - it orchestrates all tests
   - Does NOT modify src/ - stays in testing domain
   
 - **jl-benchmarker**: 
@@ -103,16 +106,17 @@ project-root/
 ### Cross-Session Continuity Protocol
 
 #### Session Startup Routine
-1. **Check `dev-note/session-log.md`** for last session context
-2. **Review your agent-specific notes** in dev-note/
-3. **Reference design/ outputs** if needed for requirements
-4. **Explore relevant resources/** for additional context
-5. **Begin work** with full context restored
+1. **Read this CLAUDE.md** for project overview and current status
+2. **Check `dev-note/session-log.md`** for last session context
+3. **Review your agent-specific notes** in dev-note/
+4. **Reference design/ outputs** if needed for requirements
+5. **Explore relevant resources/** for additional context
+6. **Begin work** with full context restored
 
 #### Session Ending Routine
 1. **Update your agent-specific dev-note/ file** with progress and insights
 2. **Update `dev-note/session-log.md`** with session summary
-3. **Document useful resources** discovered during work if needed
+3. **Document useful resources** discovered during work
 
 #### Cross-Agent Communication
 - Leave notes for other agents in your dev-note/ files
@@ -155,7 +159,12 @@ project-root/
 - Avoid excessive try-catch blocks that hide debugging information
 
 ### Testing & Performance Strategy
-- Write comprehensive tests using Test.jl
+- Write comprehensive unit tests using Test.jl in test/ directory
+- **Test structure mirrors src/ structure**: Each `src/file.jl` should have `test/file.jl`
+- Each test file contains unit tests only for its corresponding src file
+- `runtests.jl` orchestrates all test files but doesn't contain tests itself
+- Keep unit tests isolated and fast-running
+- Integration tests should be separate from test/ directory
 - Include edge cases and numerical accuracy validation
 - Implement performance benchmarks with BenchmarkTools.jl
 - Monitor memory allocations and type stability

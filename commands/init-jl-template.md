@@ -1,7 +1,7 @@
 ---
 allowed-tools: Bash(julia:*), Write
 description: Create a Julia project template in the current working directory suited with Claude Code.
-argument-hint: <PackageName.jl> [--description "Text"]
+argument-hint: <PackageName.jl> <Description>
 ---
 
 # Context

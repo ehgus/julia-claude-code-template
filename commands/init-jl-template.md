@@ -4,6 +4,10 @@ description: Initialize a comprehensive Julia package development environment op
 argument-hint: <PackageName.jl> <Description>
 ---
 
+# Prerequisite
+
+Before execution, "$1" should be camel case string and not be ended with ".jl". For example, instead of "new-benchmark", "NewBenchmark" is correct. "NewBenchmark.jl" is not acceptible. If it do not satify that, do not execute it and terminate this process.
+
 # Context
 
 ## 1. Confirm Julia exists.
@@ -130,7 +134,7 @@ Generate CLAUDE.md with the content below.
 ```Markdown
 # Project
 
-See @$1/README.md for project overview.
+See @$1.jl/README.md for project overview.
 
 ## Project Structure & Agent Coordination
 
@@ -174,7 +178,7 @@ project-root/
 │   ├── benchmarker-findings.md     # jl-benchmarker optimizations & results
 │   ├── session-log.md              # Cross-session continuity tracking
 │   └── ideas-parking.md            # Future enhancement ideas & inspiration
-├── $1/               # Public Julia package repository
+├── $1.jl/                          # Public Julia package repository
 │   ├── src/                        # jl-implementer responsibility
 │   ├── test/                       # jl-tester responsibility
 │   ├── benchmark/                  # jl-benchmarker responsibility
@@ -193,29 +197,29 @@ project-root/
 
 #### Phase 2-4: Development (Public Repository + Memory + Resources)
 - **jl-implementer**:
-  - Primary: @$1/src/ directory
+  - Primary: @$1.jl/src/ directory
   - Memory: @dev-note/implementer-notes.md
   - Resources: Can reference @resources/code-examples/ and @resources/documentation/
   - Can reference design/ outputs for guidance
   
 - **jl-tester**:
-  - Primary: @$1/test/ directory
+  - Primary: @$1.jl/test/ directory
   - Memory: @dev-note/tester-insights.md
   - Resources: Can use @resources/data/test-cases/ for complex testing scenarios
   - **Focus: Unit tests only** - integration tests belong elsewhere
-  - **Structure: Mirror @$1/src/ hierarchy to @$1/src/** - For example, the file $1/src/file1.jl has corresponding $1/test/file1.jl
-  - @$1/test/runtests.jl is the only exception - it orchestrates all tests
-  - Does NOT modify @$1/src/ - stays in testing domain
+  - **Structure: Mirror @$1.jl/src/ hierarchy to @$1.jl/src/** - For example, the file $1.jl/src/file1.jl has corresponding $1.jl/test/file1.jl
+  - @$1.jl/test/runtests.jl is the only exception - it orchestrates all tests
+  - Does NOT modify @$1.jl/src/ - stays in testing domain
   
 - **jl-benchmarker**:
-  - Primary: @$1/benchmark/ directory
+  - Primary: @$1.jl/benchmark/ directory
   - Memory: @dev-note/benchmarker-findings.md
   - Resources: Can use @resources/data/benchmark-data/ for performance testing
-  - Does NOT modify @$1/src/ - stays in benchmarking domain
+  - Does NOT modify @$1.jl/src/ - stays in benchmarking domain
 
 - **jl-documenter**:
-  - Primary: @$1/docs/ directory
-  - Secondary: @$1/src/ (docstrings and show methods only)
+  - Primary: @$1.jl/docs/ directory
+  - Secondary: @$1.jl/src/ (docstrings and show methods only)
   - Resources: Can reference @resources/documentation/ for examples and templates
   - Specializes in Documenter.jl workflow and implementation
 
@@ -268,12 +272,12 @@ project-root/
 - Error handling features (memory profilers, sophisticated error recovery) should only be added when explicitly requested by the user
 
 ### Testing & Performance Strategy
-- Write comprehensive unit tests using Test.jl in @$1/test/ directory
-- **Test structure mirrors @$1/src/ structure**: Each @$1/src/file.jl should have @$1/test/file.jl
+- Write comprehensive unit tests using Test.jl in @$1.jl/test/ directory
+- **Test structure mirrors @$1.jl/src/ structure**: Each @$1.jl/src/file.jl should have @$1.jl/test/file.jl
 - Each test file contains unit tests only for its corresponding src file
 - `runtests.jl` orchestrates all test files but doesn't contain tests itself
 - Keep unit tests isolated and fast-running
-- Integration tests should be separate from @$1/test/ directory
+- Integration tests should be separate from @$1.jl/test/ directory
 - Include edge cases and numerical accuracy validation
 - Implement performance benchmarks with BenchmarkTools.jl
 - Monitor memory allocations and type stability
@@ -299,7 +303,7 @@ project-root/
 - Each agent has clear directory ownership boundaries
 - Cross-agent communication happens through @dev-note/ files
 - No direct file conflicts - each agent stays in their domain
-- jl-implementer is the only agent modifying core @$1/src/ functionality
+- jl-implementer is the only agent modifying core @$1.jl/src/ functionality
 - All agents can reference @resources/ for additional context
 
 ### Quality Gates
@@ -313,9 +317,9 @@ project-root/
 
 ## 4. Generate README.md
 
-Generate README.md for the Julia package referring the template below. The place denoted by '[...]' in the package should be replaced in accordance with the package name $1 and the description ($2). Place the file at '$1/README.md'.
+Generate @$1.jl/README.md for the Julia package referring the template below. The place denoted by '[...]' in the package should be replaced in accordance with the package name $1.jl and the description ($2).
 ````Markdown
-# [PackageName.jl]
+# $1.jl
 
 Note: 🚧 This package is under active development. APIs may change without notice.
 

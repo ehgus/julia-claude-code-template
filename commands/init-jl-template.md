@@ -7,7 +7,8 @@ argument-hint: <PackageName.jl> <Description>
 # Context
 
 ## 1. Confirm Julia exists.
-Check the julia command exist. If not, please inform the user to install Julia and escape.
+Check the julia command exist using !`julia -v`.
+When emitting not found error, please inform the user to "install Julia first" and terminate this process.
 
 ## 2. Execute Julia script that automatically generate format.
 

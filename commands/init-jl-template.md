@@ -21,14 +21,10 @@ Run the script with command 'julia -e SCRIPT $1' where SCRIPT will be the script
 Julia Project Structure Generator (Simplified)
 
 Creates the directory structure from CLAUDE.md template.
-Assumes CLAUDE.md template already exists and will be copied/modified.
+Assumes CLAUDE.md template already exists or will be create by other process.
 
 Usage:
-    julia setup_project.jl <PackageName> [project_dir]
-
-Example:
-    julia setup_project.jl FastMatrices
-    julia setup_project.jl NeuralODE my_projects/
+    julia setup_project.jl <PackageName>
 """
 
 using Pkg
@@ -106,7 +102,7 @@ function create_dev_note_templates()
 end
 
 function main()
-    if length(ARGS) == 2
+    if length(ARGS) != 1
         println("Usage: julia setup_project.jl <PackageName>")
         exit(1)
     end

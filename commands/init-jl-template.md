@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(julia:*), Write
-description: Create a Julia project template in the current working directory suited with Claude Code.
+description: Initialize a comprehensive Julia package development environment optimized for Claude Code workflow. Creates a structured project with separate design/, resources/, and dev-note/ directories for multi-agent collaboration (jl-explorer, jl-critic, jl-implementer, jl-tester, jl-benchmarker, jl-documenter). Includes CLAUDE.md to desribe the project, session continuity support, and how to follow Julia community standards.
 argument-hint: <PackageName.jl> <Description>
 ---
 
@@ -154,7 +154,7 @@ project-root/
 │   │   ├── design-review.md
 │   │   ├── risk-assessment.md
 │   │   └── claude-code-suitability.md
-│   └── 03-architecture/            # jl-architect outputs
+│   └── 03-architecture/            # jl-implementer outputs
 │       ├── package-structure.md
 │       ├── api-design.md
 │       ├── type-system-design.md
@@ -197,7 +197,7 @@ project-root/
 #### Phase 1: Design (Private Repository)
 - **jl-explorer**: Creates analysis in `design/01-exploration/` + leverages `resources/` for research
 - **jl-critic**: Reviews design in `design/02-critique/` + references `resources/competitor-analysis/`
-- **jl-architect**: Finalizes architecture in `design/03-architecture/` + uses `resources/code-examples/patterns/`
+- **jl-implementer**: Finalizes architecture in `design/03-architecture/` + uses `resources/code-examples/patterns/`
 
 #### Phase 2-4: Development (Public Repository + Memory + Resources)
 - **jl-implementer**: 

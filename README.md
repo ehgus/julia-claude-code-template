@@ -69,7 +69,7 @@ project-name-project/
 ├── design/                          # Private design repository
 │   ├── 01-exploration/             # jl-explorer outputs
 │   ├── 02-critique/                # jl-critic outputs  
-│   └── 03-architecture/            # jl-architect outputs
+│   └── 03-architecture/            # jl-implementer outputs
 ├── resources/                       # Private resources & references
 │   ├── code-examples/              # Reference implementations
 │   ├── documentation/              # Internal specs & research

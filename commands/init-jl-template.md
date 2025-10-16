@@ -125,20 +125,12 @@ end
 
 ## 3. Generate CLAUDE.md
 
-Generate CLAUDE.md refering the template below. The place denoted by '[ ... ]' should be filled with informative text. The package name is $1 and it the purpose of the package is as follows: $2. Please check the Julia version with !`julia -v`.
+Generate CLAUDE.md with the content below.
 
 ```Markdown
-# Project: [PackageName.jl]
+# Project
 
-## Problem Statement
-[Detailed description of the problem you want to solve]
-
-## Package Information
-- **Package Name**: [PackageName.jl]
-- **Target Domain**: [e.g., Linear Algebra, Data Processing, Machine Learning, etc.]
-- **Performance Goals**: [specific benchmarks or requirements]
-- **Key Dependencies**: [planned major dependencies like CUDA.jl, DataFrames.jl, etc.]
-- **Julia Version Compatibility**: [e.g., Julia 1.10+]
+See @$1/README.md for project overview.
 
 ## Project Structure & Agent Coordination
 
@@ -182,7 +174,7 @@ project-root/
 │   ├── benchmarker-findings.md     # jl-benchmarker optimizations & results
 │   ├── session-log.md              # Cross-session continuity tracking
 │   └── ideas-parking.md            # Future enhancement ideas & inspiration
-├── [PackageName.jl]/               # Public Julia package repository
+├── $1/               # Public Julia package repository
 │   ├── src/                        # jl-implementer responsibility
 │   ├── test/                       # jl-tester responsibility
 │   ├── benchmark/                  # jl-benchmarker responsibility
@@ -201,13 +193,13 @@ project-root/
 
 #### Phase 2-4: Development (Public Repository + Memory + Resources)
 - **jl-implementer**: 
-  - Primary: `[PackageName.jl]/src/` directory
+  - Primary: `$1/src/` directory
   - Memory: `dev-note/implementer-notes.md`
   - Resources: Can reference `resources/code-examples/` and `resources/documentation/`
   - Can reference design/ outputs for guidance
   
 - **jl-tester**: 
-  - Primary: `[PackageName.jl]/test/` directory
+  - Primary: `$1/test/` directory
   - Memory: `dev-note/tester-insights.md`
   - Resources: Can use `resources/data/test-cases/` for complex testing scenarios
   - **Focus: Unit tests only** - integration tests belong elsewhere
@@ -216,14 +208,14 @@ project-root/
   - Does NOT modify src/ - stays in testing domain
   
 - **jl-benchmarker**: 
-  - Primary: `[PackageName.jl]/benchmark/` directory  
+  - Primary: `$1/benchmark/` directory  
   - Memory: `dev-note/benchmarker-findings.md`
   - Resources: Can use `resources/data/benchmark-data/` for performance testing
   - Does NOT modify src/ - stays in benchmarking domain
   
 - **jl-documenter**: 
-  - Primary: `[PackageName.jl]/docs/` directory
-  - Secondary: `[PackageName.jl]/src/` (docstrings and show methods only)
+  - Primary: `$1/docs/` directory
+  - Secondary: `$1/src/` (docstrings and show methods only)
   - Resources: Can reference `resources/documentation/` for examples and templates
   - Specializes in Documenter.jl workflow and implementation
 
@@ -250,19 +242,9 @@ project-root/
 
 #### Cross-Agent Communication
 - Leave notes for other agents in your dev-note/ files
-- Use "For [Agent]:" sections to communicate specific needs
 - Check other agents' notes before starting your work
 - Reference shared resources/ for common understanding
 - Coordinate through dev-note/ rather than direct file conflicts
-
-### Recent Progress
-[Brief summary of recent accomplishments]
-
-### Blocked Items
-[Items requiring attention or decisions]
-
-### Current Focus
-[What the active agent should prioritize]
 
 ## Development Guidelines
 
@@ -304,18 +286,6 @@ project-root/
 - Create tutorials for common use cases
 - Document performance characteristics and complexity
 
-## Implementation Requirements
-[Specific technical requirements and constraints for this project]
-
-### Performance Targets
-[Specific performance goals and benchmarks]
-
-### Compatibility Requirements  
-[Julia versions, platforms, dependencies]
-
-### API Design Principles
-[Specific guidance for this project's API design]
-
 ## Notes for Claude Code Usage
 
 ### Context Management
@@ -340,3 +310,40 @@ project-root/
 - Resources are used for validation and inspiration
 
 ```
+
+## 4. Generate README.md
+
+Generate README.md for the Julia package referring the template below. The place denoted by '[...]' in the package should be replaced in accordance with the package name $1 and the description ($2). Place the file at '$1/README.md'.
+````Markdown
+# [PackageName.jl]
+
+Note: 🚧 This package is under active development. APIs may change without notice.
+
+[Brief one-line description]
+
+## Overview
+
+[Expand on the description to explain what this package does and why it exists]
+
+## Installation
+
+This package is currently under development. Once registered, you can install it using Julia's package manager:
+```julia
+using Pkg
+Pkg.add("[PackageName]")
+```
+
+For development version:
+```julia
+using Pkg
+Pkg.add(url="https://github.com/[YourUsername]/[PackageName].jl")
+```
+
+## Quick Start
+```julia
+using [PackageName]
+
+# [Simple example demonstrating basic usage based on package purpose]
+```
+
+````

@@ -187,49 +187,49 @@ project-root/
 ### Agent Responsibilities & Directory Ownership
 
 #### Phase 1: Design (Private Repository)
-- **jl-explorer**: Creates analysis in `design/01-exploration/` + leverages `resources/` for research
-- **jl-critic**: Reviews design in `design/02-critique/` + references `resources/competitor-analysis/`
-- **jl-implementer**: Finalizes architecture in `design/03-architecture/` + uses `resources/code-examples/patterns/`
+- **jl-explorer**: Creates analysis in @design/01-exploration/ + leverages @resources/ for research
+- **jl-critic**: Reviews @design/01-exploration/ and writes critiques in @design/02-critique/
+- **jl-implementer**: Finalizes architecture in @design/03-architecture/ + uses @resources/code-examples/patterns/
 
 #### Phase 2-4: Development (Public Repository + Memory + Resources)
-- **jl-implementer**: 
-  - Primary: `$1/src/` directory
-  - Memory: `dev-note/implementer-notes.md`
-  - Resources: Can reference `resources/code-examples/` and `resources/documentation/`
+- **jl-implementer**:
+  - Primary: @$1/src/ directory
+  - Memory: @dev-note/implementer-notes.md
+  - Resources: Can reference @resources/code-examples/ and @resources/documentation/
   - Can reference design/ outputs for guidance
   
-- **jl-tester**: 
-  - Primary: `$1/test/` directory
-  - Memory: `dev-note/tester-insights.md`
-  - Resources: Can use `resources/data/test-cases/` for complex testing scenarios
+- **jl-tester**:
+  - Primary: @$1/test/ directory
+  - Memory: @dev-note/tester-insights.md
+  - Resources: Can use @resources/data/test-cases/ for complex testing scenarios
   - **Focus: Unit tests only** - integration tests belong elsewhere
-  - **Structure: Mirror src/ hierarchy** - Each `src/file.jl` has corresponding `test/file.jl`
-  - `runtests.jl` is the only exception - it orchestrates all tests
-  - Does NOT modify src/ - stays in testing domain
+  - **Structure: Mirror @$1/src/ hierarchy to @$1/src/** - For example, the file $1/src/file1.jl has corresponding $1/test/file1.jl
+  - @$1/test/runtests.jl is the only exception - it orchestrates all tests
+  - Does NOT modify @$1/src/ - stays in testing domain
   
-- **jl-benchmarker**: 
-  - Primary: `$1/benchmark/` directory  
-  - Memory: `dev-note/benchmarker-findings.md`
-  - Resources: Can use `resources/data/benchmark-data/` for performance testing
-  - Does NOT modify src/ - stays in benchmarking domain
-  
-- **jl-documenter**: 
-  - Primary: `$1/docs/` directory
-  - Secondary: `$1/src/` (docstrings and show methods only)
-  - Resources: Can reference `resources/documentation/` for examples and templates
+- **jl-benchmarker**:
+  - Primary: @$1/benchmark/ directory
+  - Memory: @dev-note/benchmarker-findings.md
+  - Resources: Can use @resources/data/benchmark-data/ for performance testing
+  - Does NOT modify @$1/src/ - stays in benchmarking domain
+
+- **jl-documenter**:
+  - Primary: @$1/docs/ directory
+  - Secondary: @$1/src/ (docstrings and show methods only)
+  - Resources: Can reference @resources/documentation/ for examples and templates
   - Specializes in Documenter.jl workflow and implementation
 
 #### All Agents: Resource Access Guidelines
-- **Read-only access** to `resources/` directory
+- **Read-only access** to @resources/ directory
 - Use resources for reference, inspiration, and validation
-- Do NOT modify or add files to `resources/` during development
+- Do NOT modify or add files to @resources/ during development
 - Document useful resources found in your dev-note/ files for future reference
 
 ### Cross-Session Continuity Protocol
 
 #### Session Startup Routine
 1. **Read this CLAUDE.md** for project overview and current status
-2. **Check `dev-note/session-log.md`** for last session context
+2. **Check @dev-note/session-log.md** for last session context
 3. **Review your agent-specific notes** in dev-note/
 4. **Reference design/ outputs** if needed for requirements
 5. **Explore relevant resources/** for additional context
@@ -237,14 +237,14 @@ project-root/
 
 #### Session Ending Routine
 1. **Update your agent-specific dev-note/ file** with progress and insights
-2. **Update `dev-note/session-log.md`** with session summary
+2. **Update @dev-note/session-log.md** with session summary
 3. **Document useful resources** discovered during work
 
 #### Cross-Agent Communication
-- Leave notes for other agents in your dev-note/ files
+- Leave notes for other agents in your @dev-note/ files
 - Check other agents' notes before starting your work
-- Reference shared resources/ for common understanding
-- Coordinate through dev-note/ rather than direct file conflicts
+- Reference shared @resources/ for common understanding
+- Coordinate through @dev-note/ rather than direct file conflicts
 
 ## Development Guidelines
 
@@ -268,12 +268,12 @@ project-root/
 - Error handling features (memory profilers, sophisticated error recovery) should only be added when explicitly requested by the user
 
 ### Testing & Performance Strategy
-- Write comprehensive unit tests using Test.jl in test/ directory
-- **Test structure mirrors src/ structure**: Each `src/file.jl` should have `test/file.jl`
+- Write comprehensive unit tests using Test.jl in @$1/test/ directory
+- **Test structure mirrors @$1/src/ structure**: Each @$1/src/file.jl should have @$1/test/file.jl
 - Each test file contains unit tests only for its corresponding src file
 - `runtests.jl` orchestrates all test files but doesn't contain tests itself
 - Keep unit tests isolated and fast-running
-- Integration tests should be separate from test/ directory
+- Integration tests should be separate from @$1/test/ directory
 - Include edge cases and numerical accuracy validation
 - Implement performance benchmarks with BenchmarkTools.jl
 - Monitor memory allocations and type stability
@@ -290,17 +290,17 @@ project-root/
 
 ### Context Management
 - Always reference this CLAUDE.md first for project understanding
-- Use dev-note/ files to maintain context across sessions
-- Leverage design/ outputs for architectural decisions
-- Explore resources/ for additional context and examples
+- Use @dev-note/ files to maintain context across sessions
+- Leverage @design/ outputs for architectural decisions
+- Explore @resources/ for additional context and examples
 - Keep public package clean and professional
 
 ### Subagent Coordination
 - Each agent has clear directory ownership boundaries
-- Cross-agent communication happens through dev-note/ files
+- Cross-agent communication happens through @dev-note/ files
 - No direct file conflicts - each agent stays in their domain
-- jl-implementer is the only agent modifying core src/ functionality
-- All agents can reference resources/ for additional context
+- jl-implementer is the only agent modifying core @$1/src/ functionality
+- All agents can reference @resources/ for additional context
 
 ### Quality Gates
 - All public code follows Julia community standards

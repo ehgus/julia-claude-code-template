@@ -1,7 +1,7 @@
 ---
-allowed-tools: Bash(julia --version), Bash(julia -e:*), Bash(mkdir -p:*), Bash(mv:*), Bash(git init:*), Write
-description: Initialize a comprehensive Julia package development environment optimized for Claude Code workflow. Creates a structured project with separate design/, resources/, and dev-note/ directories for multi-agent collaboration (jl-explorer, jl-critic, jl-implementer, jl-tester, jl-benchmarker, jl-documenter). Includes CLAUDE.md to desribe the project, session continuity support, and how to follow Julia community standards.
-argument-hint: <PackageName.jl> <Description>
+allowed-tools: Bash(julia --version), Bash(julia -e:*), Bash(test -d:*), Bash(mkdir -p:*), Bash(mv:*), Bash(git init:*), Write
+description: Initialize a comprehensive Julia package development environment optimized for Claude Code workflow. Creates a structured project with separate design/, resources/, and dev-note/ directories for multi-agent collaboration (jl-explorer, jl-critic, jl-implementer, jl-tester, jl-benchmarker, jl-documenter). Includes CLAUDE.md to describe the project, session continuity support, and how to follow Julia community standards. Supports both creating new packages and wrapping existing ones.
+argument-hint: <PackageName> [Description]
 ---
 
 # Prerequisite
@@ -14,7 +14,22 @@ Before execution, "$1" should be camel case string and not be ended with ".jl". 
 Check the julia command exist using !`julia --version`.
 When emitting not found error, please inform the user to "install Julia first" and terminate this process.
 
-## 2. Create directory structure.
+## 2. Check package existence based on description parameter.
+
+- Check that "$1.jl/" directory does whether exist using the following command:
+```bash
+test -d "$1.jl" && echo "EXISTS" || echo "NOT_EXISTS"`
+```
+
+**If description ($2) is provided** (creating new package):
+- If "$1.jl/" exists, inform user "Package $1.jl already exists. Cannot create new package." and terminate
+- Proceed with full setup including package generation
+
+**If description ($2) is NOT provided** (wrapping existing package):
+- If "$1.jl/" doesn't exist, inform user "Package $1.jl not found. Please provide description to create new package." and terminate
+- Proceed with setup but SKIP package generation and README creation
+
+## 3. Create directory structure.
 
 Create all required directories:
 
@@ -63,8 +78,15 @@ echo "# Ideas Parking
 
 [Park future enhancement ideas here]" > dev-note/ideas-parking.md
 ```
+Initialize git repositories:
 
-Generate Julia package, rename it, and create additional directories:
+```bash
+git init
+```
+
+**If description ($2) is provided** (creating new package):
+
+Generate Julia package, rename it, create additional directories, and initialize git inside:
 
 ```bash
 julia -e "using Pkg; Pkg.generate(\"$1\")"
@@ -72,16 +94,10 @@ mv "$1" "$1.jl"
 mkdir -p "$1.jl/test"
 mkdir -p "$1.jl/benchmark"
 mkdir -p "$1.jl/docs/src"
-```
-
-Initialize git repositories:
-
-```bash
-git init
 git init "$1.jl/"
 ```
 
-## 3. Generate CLAUDE.md
+## 4. Generate CLAUDE.md
 
 Generate CLAUDE.md with the content below.
 
@@ -237,7 +253,9 @@ Each specialized agent has detailed expertise and guidelines. Refer to their pro
 
 ```
 
-## 4. Generate README.md
+## 5. Generate README.md (only if description is provided)
+
+**If description ($2) is provided** (creating new package):
 
 Generate @$1.jl/README.md for the Julia package referring the template below. The place denoted by '[...]' in the package should be replaced in accordance with the package name $1.jl and the description ($2).
 ````Markdown

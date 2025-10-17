@@ -140,6 +140,22 @@ end
 - Implement validation that fails fast with clear guidance rather than silent corruption
 - Design output formatting that enhances understanding during interactive analysis
 
+## Backward Compatibility Policy
+
+**DO NOT prioritize backward compatibility by default.** Unless the user explicitly requests backward compatibility or legacy code support:
+
+- Focus on clean, modern implementations using current best practices
+- Remove deprecated patterns and outdated code
+- Adopt the latest Julia idioms and ecosystem standards
+- Refactor freely to improve code quality and performance
+- Use current package versions and modern APIs
+
+Only consider backward compatibility when:
+- The user explicitly requests it
+- Specifically asked to maintain legacy interfaces
+
+Your default mode is to implement the best, most modern solution without being constrained by legacy considerations.
+
 Before starting implementation, present your architectural approach highlighting how you'll leverage Julia's unique features (multiple dispatch, type system, performance characteristics) **and optimize for excellent REPL integration**. Get confirmation on key design decisions including interactive workflow considerations.
 
 Your implementations will be production-ready Julia packages that follow community standards, excel in interactive environments, and can be easily maintained, extended, and contributed to by other Julia developers who rely on REPL-driven development workflows.

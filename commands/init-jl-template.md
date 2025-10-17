@@ -216,7 +216,7 @@ project-root/
 
 - **jl-documenter**:
   - Primary: @$1.jl/docs/ directory
-  - Secondary: @$1.jl/src/ (docstrings and show methods only)
+  - Secondary: @$1.jl/src/ (docstrings only)
   - Resources: Can reference @resources/documentation/ for examples and templates
   - Specializes in Documenter.jl workflow and implementation
 
@@ -249,35 +249,14 @@ project-root/
 
 ## Development Guidelines
 
-### Julia Package Standards
-- Follow Julia naming conventions (lowercase with underscores)
-- Implement proper multiple dispatch patterns
-- Ensure type stability throughout codebase
-- Write comprehensive docstrings for all public APIs
-- Include performance considerations in design decisions
-- Follow semantic versioning for releases
+Each specialized agent has detailed expertise and guidelines. Refer to their prompts for specific instructions:
 
-### REPL-First Development Philosophy  
-- Optimize for excellent REPL interaction and user experience
-- Implement beautiful `show` methods for custom types
-- Write docstrings that shine in `?function_name` queries
-- Design APIs that feel natural during interactive sessions
-- Ensure error messages are clear and actionable
-- Avoid excessive try-catch blocks that hide debugging information
-- **No premature error handling**: Do NOT add try-catch, fallbacks, or error recovery mechanisms unless explicitly requested
-- **Let errors surface**: Clear error messages and stack traces are more valuable than masked failures
-- Error handling features (memory profilers, sophisticated error recovery) should only be added when explicitly requested by the user
-
-### Testing & Performance Strategy
-- Use @$1.jl/test/ for comprehensive unit tests (see jl-tester agent)
-- Integration tests should be separate from @$1.jl/test/ directory
-
-### Documentation Requirements
-- Use Documenter.jl for all documentation
-- Include mathematical notation using LaTeX
-- Provide copy-paste ready examples in docstrings
-- Create tutorials for common use cases
-- Document performance characteristics and complexity
+- **Code standards, REPL philosophy, error handling, display policy**: See jl-implementer agent
+- **Testing strategy and comprehensive test suite implementation**: See jl-tester agent
+- **Documentation with Documenter.jl and docstring standards**: See jl-documenter agent
+- **Performance benchmarking and optimization analysis**: See jl-benchmarker agent
+- **Ecosystem exploration and competitive analysis**: See jl-explorer agent
+- **Design critique and AI-assisted development suitability**: See jl-critic agent
 
 ## Notes for Claude Code Usage
 

@@ -206,9 +206,6 @@ project-root/
   - Primary: @$1.jl/test/ directory
   - Memory: @dev-note/tester-insights.md
   - Resources: Can use @resources/data/test-cases/ for complex testing scenarios
-  - **Focus: Unit tests only** - integration tests belong elsewhere
-  - **Structure: Mirror @$1.jl/src/ hierarchy to @$1.jl/src/** - For example, the file $1.jl/src/file1.jl has corresponding $1.jl/test/file1.jl
-  - @$1.jl/test/runtests.jl is the only exception - it orchestrates all tests
   - Does NOT modify @$1.jl/src/ - stays in testing domain
   
 - **jl-benchmarker**:
@@ -272,16 +269,8 @@ project-root/
 - Error handling features (memory profilers, sophisticated error recovery) should only be added when explicitly requested by the user
 
 ### Testing & Performance Strategy
-- Write comprehensive unit tests using Test.jl in @$1.jl/test/ directory
-- **Test structure mirrors @$1.jl/src/ structure**: Each @$1.jl/src/file.jl should have @$1.jl/test/file.jl
-- Each test file contains unit tests only for its corresponding src file
-- `runtests.jl` orchestrates all test files but doesn't contain tests itself
-- Keep unit tests isolated and fast-running
+- Use @$1.jl/test/ for comprehensive unit tests (see jl-tester agent)
 - Integration tests should be separate from @$1.jl/test/ directory
-- Include edge cases and numerical accuracy validation
-- Implement performance benchmarks with BenchmarkTools.jl
-- Monitor memory allocations and type stability
-- Test across different Julia versions and platforms
 
 ### Documentation Requirements
 - Use Documenter.jl for all documentation

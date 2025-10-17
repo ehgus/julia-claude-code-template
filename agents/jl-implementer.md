@@ -74,7 +74,111 @@ When given a software idea or concept, you will:
    - `examples/` directory with REPL-ready demonstration scripts
    - Appropriate `.gitignore` and CI configuration
 
-7. **Testing and Benchmarking Strategy**: Include comprehensive testing with:
+7. **Script Creation Rules**: Create Julia scripts following a consistent structure. Scripts differ only in location and purpose:
+
+   **Script Structure Template** (applies to both standalone and example scripts):
+
+   Location:
+   - **Standalone scripts**: Project root or `scripts/` directory
+   - **Example scripts**: `examples/` directory in package structure
+
+   Structure requirements:
+   ```julia
+   #!/usr/bin/env julia
+
+   """
+   script_name.jl - Brief description
+
+   Usage: julia script_name.jl [args]
+
+   Description:
+   Detailed explanation of what this script does
+
+   Arguments:
+   - arg1: Description
+   - arg2: Description
+
+   Examples:
+   julia script_name.jl input.csv output.csv
+   """
+
+   # Dependencies (use package mode syntax in comments for clarity)
+   using PackageName
+
+   # Configuration constants at the top
+   const DEFAULT_VALUE = 100
+
+   # Helper functions (if needed)
+   function helper_function(x)
+       # implementation
+   end
+
+   # Main script logic
+   function main(args)
+       # Argument parsing
+       if length(args) < 2
+           println(stderr, "Error: Insufficient arguments")
+           println(stderr, "Usage: julia script_name.jl input output")
+           exit(1)
+       end
+
+       input_file = args[1]
+       output_file = args[2]
+
+       # Validation
+       if !isfile(input_file)
+           println(stderr, "Error: Input file '$input_file' not found")
+           exit(1)
+       end
+
+       # Core logic here
+       try
+           # processing
+           println("Success: Output written to $output_file")
+       catch e
+           println(stderr, "Error: $(sprint(showerror, e))")
+           exit(1)
+       end
+   end
+
+   # Entry point
+   if abspath(PROGRAM_FILE) == @__FILE__
+       main(ARGS)
+   end
+   ```
+
+   **Common Guidelines** (for all scripts):
+   - Include shebang (`#!/usr/bin/env julia`) for Unix systems
+   - Provide comprehensive docstring at file top explaining usage
+   - Use `main(args)` function pattern for testability
+   - Guard execution with `if abspath(PROGRAM_FILE) == @__FILE__` check
+   - Parse arguments with clear error messages
+   - Validate inputs early with actionable error messages
+   - Use `exit(1)` for error conditions, `exit(0)` for success
+   - Print errors to `stderr`, normal output to `stdout`
+   - Keep dependencies minimal and explicit
+   - Use `const` for configuration values
+   - Add execution permissions on Unix: `chmod +x script_name.jl`
+   - Handle file I/O errors gracefully
+   - Provide progress feedback for long-running operations
+
+   **Script Type Distinctions** (location-based only):
+
+   **A. Standalone Scripts** (in project root):
+   - One-off data processing tasks
+   - Automation workflows
+   - Simple utilities not requiring package infrastructure
+   - Quick prototypes before package implementation
+   - System integration tasks
+
+   **B. Example Scripts** (in `examples/` directory):
+   - Demonstrate package functionality with realistic scenarios
+   - Show typical use cases and workflows
+   - Provide working code users can run and modify
+   - Follow same structure as standalone scripts
+   - May include more detailed comments explaining package features
+
+8. **Testing and Benchmarking Strategy**: Include comprehensive testing with:
    - Unit tests using Test.jl with proper test sets optimized for `]test` workflow
    - Property-based testing where appropriate
    - Performance regression tests compatible with REPL benchmarking
@@ -82,7 +186,7 @@ When given a software idea or concept, you will:
    - Integration with Julia's CI ecosystem (GitHub Actions)
    - **Interactive testing workflows that work well in REPL sessions**
 
-8. **Performance Optimization**: Leverage Julia's performance capabilities:
+9. **Performance Optimization**: Leverage Julia's performance capabilities:
    - Type stability analysis and optimization with REPL-friendly debugging
    - Proper use of views vs copies for arrays
    - Memory allocation optimization with `@time` and `@allocated` integration
@@ -90,7 +194,7 @@ When given a software idea or concept, you will:
    - GPU acceleration when beneficial (CUDA.jl, etc.)
    - Parallelization using Julia's threading capabilities
 
-9. **Documentation and Examples**: Provide comprehensive Julia documentation:
+10. **Documentation and Examples**: Provide comprehensive Julia documentation:
    - Detailed docstrings with LaTeX math notation rendered with Documenter.jl package
    - Usage examples in docstrings that can be copy-pasted directly into REPL
    - Integration with Documenter.jl for professional documentation

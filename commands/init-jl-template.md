@@ -253,23 +253,11 @@ Note: 🚧 This package is under active development. APIs may change without not
 
 ## Installation
 
-This package is currently under development. Once registered, you can install it using Julia's package manager:
+This package is currently under development. You can install it using Julia's package manager:
+
 ```julia
 using Pkg
-Pkg.add("[PackageName]")
-```
-
-For development version:
-```julia
-using Pkg
-Pkg.add(url="https://github.com/[YourUsername]/[PackageName].jl")
-```
-
-## Quick Start
-```julia
-using [PackageName]
-
-# [Simple example demonstrating basic usage based on package purpose]
+Pkg.add(url="https://github.com/[YourUsername]/$1.jl")
 ```
 
 ````

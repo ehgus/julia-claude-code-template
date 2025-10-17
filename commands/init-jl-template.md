@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(julia:*), Write
+allowed-tools: Bash(julia --version), Bash(julia -e:*), Bash(mkdir -p:*), Bash(mv:*), Bash(git init:*), Write
 description: Initialize a comprehensive Julia package development environment optimized for Claude Code workflow. Creates a structured project with separate design/, resources/, and dev-note/ directories for multi-agent collaboration (jl-explorer, jl-critic, jl-implementer, jl-tester, jl-benchmarker, jl-documenter). Includes CLAUDE.md to desribe the project, session continuity support, and how to follow Julia community standards.
 argument-hint: <PackageName.jl> <Description>
 ---
@@ -11,120 +11,74 @@ Before execution, "$1" should be camel case string and not be ended with ".jl". 
 # Context
 
 ## 1. Confirm Julia exists.
-Check the julia command exist using !`julia -v`.
+Check the julia command exist using !`julia --version`.
 When emitting not found error, please inform the user to "install Julia first" and terminate this process.
 
-## 2. Execute Julia script that automatically generate format.
+## 2. Create directory structure.
 
-Run the script below that generate Julia project structure.
-Run the script with command 'julia -e SCRIPT $1' where SCRIPT will be the script below.
+Create all required directories:
 
-```Julia
-#!/usr/bin/env julia
+```bash
+# design
+mkdir -p design/01-exploration
+mkdir -p design/02-critique
+mkdir -p design/03-architecture
+# resources
+mkdir -p resources/code-examples/similar-packages
+mkdir -p resources/code-examples/algorithms
+mkdir -p resources/code-examples/patterns
+mkdir -p resources/documentation/internal-specs
+mkdir -p resources/documentation/api-drafts
+mkdir -p resources/documentation/technical-notes
+mkdir -p resources/data/benchmark-data
+mkdir -p resources/data/test-cases
+mkdir -p resources/data/validation-data
+mkdir -p resources/external/papers
+mkdir -p resources/external/reference-libs
+mkdir -p resources/external/competitor-analysis
+# dev-note
+mkdir -p dev-note
+```
 
-"""
-Julia Project Structure Generator (Simplified)
+Create dev-note template files:
 
-Creates the directory structure from CLAUDE.md template.
-Assumes CLAUDE.md template already exists or will be create by other process.
+```bash
+echo "# jl-implementer Development Notes
 
-Usage:
-    julia setup_project.jl <PackageName>
-"""
+[Track implementation progress here]" > dev-note/implementer-notes.md
 
-using Pkg
+echo "# jl-tester Insights
 
-function create_directory_structure(package_name::String)
-    """Create the complete directory structure"""
+[Track testing discoveries here]" > dev-note/tester-insights.md
 
-    # Define the directory structure from CLAUDE.md
-    directories = [
-        # Design directories
-        "design/01-exploration",
-        "design/02-critique",
-        "design/03-architecture",
+echo "# jl-benchmarker Findings
 
-        # Resources directories
-        "resources/code-examples/similar-packages",
-        "resources/code-examples/algorithms",
-        "resources/code-examples/patterns",
-        "resources/documentation/internal-specs",
-        "resources/documentation/api-drafts",
-        "resources/documentation/technical-notes",
-        "resources/data/benchmark-data",
-        "resources/data/test-cases",
-        "resources/data/validation-data",
-        "resources/external/papers",
-        "resources/external/reference-libs",
-        "resources/external/competitor-analysis",
+[Track performance insights here]" > dev-note/benchmarker-findings.md
 
-        # Dev note directory
-        "dev-note",
-    ]
+echo "# Session Log
 
-    # Create all directories
-    for dir in directories
-        mkpath(dir)
-    end
+[Track cross-session continuity here]" > dev-note/session-log.md
 
-    # Create Julia package using Pkg.generate (without .jl extension)
-    Pkg.generate(package_name)
+echo "# Ideas Parking
 
-    renamed_package_name = mv(package_name, package_name*".jl")
-    # Create additional package directories
-    package_dirs = [
-        "$renamed_package_name/test",
-        "$renamed_package_name/benchmark",
-        "$renamed_package_name/docs/src",
-    ]
+[Park future enhancement ideas here]" > dev-note/ideas-parking.md
+```
 
-    # Initialize git
-    run(`git init design/`)
-    run(`git init $renamed_package_name/`)
+Generate Julia package, rename it, and create additional directories:
 
-    for dir in package_dirs
-        mkpath(dir)
-    end
-end
+```bash
+julia -e "using Pkg; Pkg.generate(\"$1\")"
+mv "$1" "$1.jl"
+mkdir -p "$1.jl/test"
+mkdir -p "$1.jl/benchmark"
+mkdir -p "$1.jl/docs/src"
+```
 
-function create_dev_note_templates()
-    """Create minimal dev-note template files"""
+Initialize git repositories:
 
-    # Simple template files
-    templates = [
-        "dev-note/implementer-notes.md" => "# jl-implementer Development Notes\n\n[Track implementation progress here]\n",
-        "dev-note/tester-insights.md" => "# jl-tester Insights\n\n[Track testing discoveries here]\n",
-        "dev-note/benchmarker-findings.md" => "# jl-benchmarker Findings\n\n[Track performance insights here]\n",
-        "dev-note/session-log.md" => "# Session Log\n\n[Track cross-session continuity here]\n",
-        "dev-note/ideas-parking.md" => "# Ideas Parking\n\n[Park future enhancement ideas here]\n",
-    ]
-
-    for (filepath, content) in templates
-        open(filepath, "w") do f
-            write(f, content)
-        end
-    end
-end
-
-function main()
-    if length(ARGS) != 1
-        println("Usage: julia setup_project.jl <PackageName>")
-        exit(1)
-    end
-
-    package_name = ARGS[1]
-    println("Creating project structure for $package_name...")
-
-    create_directory_structure(package_name)
-    create_dev_note_templates()
-
-    println("Project setup complete")
-end
-
-if abspath(PROGRAM_FILE) == abspath(@__FILE__)
-    main()
-end
-
+```bash
+git init
+git init "$1.jl/"
 ```
 
 ## 3. Generate CLAUDE.md

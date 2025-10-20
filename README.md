@@ -7,7 +7,7 @@ This is working in progress.
 ## Features
 
 - **Complete project structure** optimized for Claude Code development
-- **Multi-agent workflow** with specialized Julia development agents (jl-explorer, jl-implementer, jl-tester, etc.)
+- **Multi-agent workflow** with specialized Julia development agents (jl-explorer, jl-critic, jl-implementer, jl-tester, jl-documenter)
 - **Private design repository** for internal development processes
 - **Resources directory** for reference materials and private assets
 - **Session continuity** through dev-note/ memory system
@@ -54,7 +54,6 @@ julia setup_project.jl MyPackageName
 2. **Development Phase**
    - `jl-implementer`: Core package implementation
    - `jl-tester`: Comprehensive testing suite
-   - `jl-benchmarker`: Performance measurement and optimization
    - `jl-documenter`: Documentation with Documenter.jl
 
 3. **Session Management**
@@ -78,13 +77,11 @@ project-name-project/
 ├── dev-note/                       # Development memory system
 │   ├── implementer-notes.md        # jl-implementer session memory
 │   ├── tester-insights.md          # jl-tester discoveries
-│   ├── benchmarker-findings.md     # jl-benchmarker performance data
 │   ├── session-log.md              # Cross-session continuity
 │   └── ideas-parking.md            # Future enhancement ideas
 ├── PackageName/                     # Public Julia package
 │   ├── src/                        # Package source code
 │   ├── test/                       # Test suite
-│   ├── benchmark/                  # Performance benchmarks
 │   ├── docs/                       # Documenter.jl documentation
 │   └── Project.toml               # Package metadata
 └── CLAUDE.md                       # Project command center

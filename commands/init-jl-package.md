@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(julia --version), Bash(julia -e:*), Bash(test -d:*), Bash(mkdir -p:*), Bash(mv:*), Bash(git init:*), Write
-description: Initialize a comprehensive Julia package development environment optimized for Claude Code workflow. Creates a structured project with separate design/, resources/, and dev-note/ directories for multi-agent collaboration (jl-explorer, jl-critic, jl-implementer, jl-tester, jl-benchmarker, jl-documenter). Includes CLAUDE.md to describe the project, session continuity support, and how to follow Julia community standards. Supports both creating new packages and wrapping existing ones.
+description: Initialize a comprehensive Julia package development environment optimized for Claude Code workflow. Creates a structured project with separate design/, resources/, and dev-note/ directories for multi-agent collaboration (jl-explorer, jl-critic, jl-implementer, jl-tester, jl-documenter). Includes CLAUDE.md to describe the project, session continuity support, and how to follow Julia community standards. Supports both creating new packages and wrapping existing ones.
 argument-hint: <PackageName> [Description]
 ---
 
@@ -45,7 +45,6 @@ mkdir -p resources/code-examples/patterns
 mkdir -p resources/documentation/internal-specs
 mkdir -p resources/documentation/api-drafts
 mkdir -p resources/documentation/technical-notes
-mkdir -p resources/data/benchmark-data
 mkdir -p resources/data/test-cases
 mkdir -p resources/data/validation-data
 mkdir -p resources/external/papers
@@ -65,10 +64,6 @@ echo "# jl-implementer Development Notes
 echo "# jl-tester Insights
 
 [Track testing discoveries here]" > dev-note/tester-insights.md
-
-echo "# jl-benchmarker Findings
-
-[Track performance insights here]" > dev-note/benchmarker-findings.md
 
 echo "# Session Log
 
@@ -92,7 +87,6 @@ Generate Julia package, rename it, create additional directories, and initialize
 julia -e "using Pkg; Pkg.generate(\"$1\")"
 mv "$1" "$1.jl"
 mkdir -p "$1.jl/test"
-mkdir -p "$1.jl/benchmark"
 mkdir -p "$1.jl/docs/src"
 git init "$1.jl/"
 ```
@@ -134,8 +128,7 @@ project-root/
 │   │   ├── internal-specs/         # Internal specifications & requirements
 │   │   ├── api-drafts/             # API design drafts & iterations
 │   │   └── technical-notes/        # Technical research & analysis
-│   ├── data/                       # Test data & benchmarking datasets
-│   │   ├── benchmark-data/         # Datasets for performance testing
+│   ├── data/                       # Test data & validation datasets
 │   │   ├── test-cases/             # Complex test scenarios & edge cases
 │   │   └── validation-data/        # Data for algorithm validation
 │   └── external/                   # External resources & dependencies
@@ -145,13 +138,11 @@ project-root/
 ├── dev-note/                       # Development memory & ideas storage
 │   ├── implementer-notes.md        # jl-implementer progress & ideas
 │   ├── tester-insights.md          # jl-tester discoveries & patterns
-│   ├── benchmarker-findings.md     # jl-benchmarker optimizations & results
 │   ├── session-log.md              # Cross-session continuity tracking
 │   └── ideas-parking.md            # Future enhancement ideas & inspiration
 ├── $1.jl/                          # Public Julia package repository
 │   ├── src/                        # jl-implementer responsibility
 │   ├── test/                       # jl-tester responsibility
-│   ├── benchmark/                  # jl-benchmarker responsibility
 │   ├── docs/                       # jl-documenter responsibility
 │   ├── Project.toml
 │   └── README.md
@@ -177,12 +168,6 @@ project-root/
   - Memory: @dev-note/tester-insights.md
   - Resources: Can use @resources/data/test-cases/ for complex testing scenarios
   - Does NOT modify @$1.jl/src/ - stays in testing domain
-  
-- **jl-benchmarker**:
-  - Primary: @$1.jl/benchmark/ directory
-  - Memory: @dev-note/benchmarker-findings.md
-  - Resources: Can use @resources/data/benchmark-data/ for performance testing
-  - Does NOT modify @$1.jl/src/ - stays in benchmarking domain
 
 - **jl-documenter**:
   - Primary: @$1.jl/docs/ directory
@@ -224,7 +209,6 @@ Each specialized agent has detailed expertise and guidelines. Refer to their pro
 - **Code standards, REPL philosophy, error handling, display policy**: See jl-implementer agent
 - **Testing strategy and comprehensive test suite implementation**: See jl-tester agent
 - **Documentation with Documenter.jl and docstring standards**: See jl-documenter agent
-- **Performance benchmarking and optimization analysis**: See jl-benchmarker agent
 - **Ecosystem exploration and competitive analysis**: See jl-explorer agent
 - **Design critique and AI-assisted development suitability**: See jl-critic agent
 

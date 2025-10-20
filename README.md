@@ -1,13 +1,24 @@
 # Julia Claude Code Template
 
-A comprehensive project template for Julia package development using Claude Code with specialized subagents.
+A comprehensive project template for Julia package development using Claude Code with specialized subagents, designed around Extreme Programming (XP) principles for AI-assisted development.
 
 This is working in progress.
+
+## Philosophy: Extreme Programming for AI Development
+
+This template adapts Extreme Programming practices for AI-assisted Julia package development:
+
+- **Test-Driven Development (TDD)**: The jl-tester agent writes tests first, defining the API through test expectations. The jl-implementer then makes those tests pass with minimal code.
+- **Pair Programming**: Agents collaborate in tight pairs throughout development - jl-critic reviews code alongside jl-implementer, jl-tester pairs with jl-implementer in TDD cycles, providing real-time feedback and continuous code review.
+- **Simple Design**: The jl-explorer focuses on just-in-time research for immediate needs rather than exhaustive upfront analysis, following YAGNI (You Aren't Gonna Need It).
+- **Short Iteration Cycles**: All agents work together in rapid cycles on small features rather than sequential waterfall phases.
+- **Living Documentation**: The jl-documenter updates documentation incrementally with each change, keeping it synchronized with the code.
 
 ## Features
 
 - **Complete project structure** optimized for Claude Code development
 - **Multi-agent workflow** with specialized Julia development agents (jl-explorer, jl-critic, jl-implementer, jl-tester, jl-documenter)
+- **XP-based workflow** promoting TDD, continuous refactoring, and short feedback loops
 - **Private design repository** for internal development processes
 - **Resources directory** for reference materials and private assets
 - **Session continuity** through dev-note/ memory system

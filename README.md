@@ -9,7 +9,7 @@ This is working in progress.
 This template adapts Extreme Programming practices for AI-assisted Julia package development:
 
 - **Test-Driven Development (TDD)**: The jl-tester agent writes tests first, defining the API through test expectations. The jl-implementer then makes those tests pass with minimal code.
-- **Pair Programming**: Agents collaborate in tight pairs throughout development - jl-critic reviews code alongside jl-implementer, jl-tester pairs with jl-implementer in TDD cycles, providing real-time feedback and continuous code review.
+- **Role-Based TDD Workflow**: Different agents provide focused perspectives for each phase - jl-tester enforces test-first discipline (RED), jl-implementer focuses on minimal implementation (GREEN) and refactoring, jl-critic provides architectural review. This structured approach ensures separation of concerns and disciplined development.
 - **Simple Design**: The jl-explorer focuses on just-in-time research for immediate needs rather than exhaustive upfront analysis, following YAGNI (You Aren't Gonna Need It).
 - **Short Iteration Cycles**: All agents work together in rapid cycles on small features rather than sequential waterfall phases.
 - **Living Documentation**: The jl-documenter updates documentation incrementally with each change, keeping it synchronized with the code.
@@ -116,7 +116,7 @@ Use built-in commands to access git-archived iterations:
 ### Workflow Summary
 
 1. **TDD Cycles**: `jl-tester` writes tests → `jl-implementer` makes them pass
-2. **Pair Programming**: Agents collaborate through pairing-artifacts/
+2. **Sequential Workflow**: Each agent completes their phase independently with clear handoffs
 3. **Short Iterations**: Complete small features in days, not weeks
 4. **Living History**: Recent iterations visible, old ones in git tags
 5. **Continuous Feedback**: Retrospectives inform next iteration
@@ -135,10 +135,6 @@ project-name/
 │   │   └── retrospective.md        # What we learned
 │   ├── iter-data-validation/       # Keep last 3-10 iterations
 │   └── iter-type-system/           # Older ones archived in git
-├── pairing-artifacts/               # Collaboration records
-│   ├── tester-implementer/         # TDD pair session notes
-│   ├── critic-implementer/         # Code review pairing
-│   └── explorer-critic/            # Design discussion artifacts
 ├── spikes/                          # Timeboxed research (XP practice)
 │   ├── spike-gpu-acceleration/
 │   └── spike-alternative-algo/

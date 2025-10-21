@@ -36,9 +36,6 @@ Create all required directories:
 ```bash
 # XP iteration structure
 mkdir -p iterations
-mkdir -p pairing-artifacts/tester-implementer
-mkdir -p pairing-artifacts/critic-implementer
-mkdir -p pairing-artifacts/explorer-critic
 mkdir -p spikes
 # resources
 mkdir -p resources/code-examples/similar-packages
@@ -165,10 +162,6 @@ project-root/
 │   │   ├── refactor-notes.md       # REFACTOR phase - improve code
 │   │   └── retrospective.md        # What we learned
 │   └── ...                         # Keep last 3-10, archive older ones
-├── pairing-artifacts/               # Pair programming collaboration
-│   ├── tester-implementer/         # TDD pair sessions
-│   ├── critic-implementer/         # Code review pairing
-│   └── explorer-critic/            # Design discussions
 ├── spikes/                          # Timeboxed research experiments
 ├── resources/                       # Private resources & reference materials
 │   ├── code-examples/              # Reference implementations & snippets
@@ -221,11 +214,11 @@ project-root/
 
 #### Just-in-Time Research & Review
 - **jl-explorer**: Quick ecosystem research for current iteration needs
-  - Stores findings in @spikes/ or @pairing-artifacts/explorer-critic/
+  - Stores findings in @spikes/
   - Uses @resources/ for reference materials
 
 - **jl-critic**: Reviews design decisions and code quality during iterations
-  - Collaboration notes in @pairing-artifacts/critic-implementer/
+  - Documents architectural decisions in @iterations/[current]/planning.md
   - Evaluates architectural options before tests are written
 
 #### Iteration Management
@@ -252,10 +245,9 @@ project-root/
 4. **Update @PROGRESS.md** if completing tasks or iteration
 
 #### Cross-Agent Communication
-- **Pairing notes**: Use @pairing-artifacts/ for collaboration records
 - **Agent memory**: Check @dev-note/ for agent-specific insights
 - **Iteration context**: Current work tracked in @iterations/[current]/
-- **Research findings**: Store in @spikes/ or @pairing-artifacts/
+- **Research findings**: Store in @spikes/
 
 ## Development Guidelines
 

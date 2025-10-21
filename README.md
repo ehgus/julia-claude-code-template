@@ -33,67 +33,129 @@ git clone https://github.com/eghus/julia-claude-code-template.git my-julia-templ
 cd my-julia-template
 ```
 
-### 2. Customize Template
+### 2. Initialize New Project
 
-``` bash
-# Copy `CLAUDE-TEMPLATE.md` into `CLAUDE.md`
-cp CLAUDE-TEMPLATE.md CLAUDE.md
-```
-
-Edit `CLAUDE.md` and replace all bracketed placeholders with your preferences:
-
-- [Package Name] → Your default package name
-- [PackageName.jl] → Your package format
-- [Target Domain] → Your focus area (e.g., "Machine Learning", "Scientific Computing")
-- [Performance Goals] → Your typical performance requirements
-- [Key Dependencies] → Your commonly used packages
-- [Julia Version Compatibility] → Your Julia version requirements
-
-### 3. Initialize New Projects
+Use the `/init-jl-package` command in Claude Code:
 
 ```bash
-# Basic usage
-julia setup_project.jl MyPackageName
+# Create new package with description
+/init-jl-package MyPackageName "A brief description of your package"
+
+# Or wrap existing package (no description)
+/init-jl-package MyPackageName
 ```
 
-## Project Workflow
+This will:
+- Set up the XP iteration structure (iterations/, pairing-artifacts/, spikes/)
+- Automatically create PROGRESS.md for TODO tracking
+- Initialize dev-note/ for session continuity
+- Generate CLAUDE.md as project command center
+- Set up your Julia package structure (if creating new)
 
-1. **Design Phase**
-   - `jl-explorer`: Analyze ecosystem and requirements
-   - `jl-critic`: Review and critique design decisions
+### 3. Start Your First Iteration
 
-2. **Development Phase**
-   - `jl-implementer`: Core package implementation
-   - `jl-tester`: Comprehensive testing suite
-   - `jl-documenter`: Documentation with Documenter.jl
+```bash
+# Create your first iteration
+mkdir iterations/iter-initial-setup
+# Edit PROGRESS.md and add your TODOs, then start working!
+```
 
-3. **Session Management**
-   - All agents use `dev-note/` for cross-session continuity
-   - `CLAUDE.md` serves as the project command center
-   - Resources in `resources/` provide additional context
+## XP Iteration Workflow
+
+The template follows **Extreme Programming (XP)** principles with short iteration cycles:
+
+### Starting an Iteration
+
+1. Create new iteration directory: `iterations/iter-FEATURE-NAME/` (use descriptive names!)
+2. Create planning.md and move the iteration description from `PROGRESS.md`.
+3. Remove iteration description from `PROGRESS.md`
+4. Develop planning.md with user stories and acceptance criteria
+5. Use `jl-tester` to write failing tests (RED phase)
+6. Use `jl-implementer` to make tests pass (GREEN phase)
+7. Refactor and document learnings (REFACTOR phase)
+
+**Naming Convention:** Use descriptive names like `iter-gpu-acceleration`, `iter-error-handling`, not sequential numbers like `iter-001`.
+
+### Completing an Iteration
+
+```bash
+# Automated workflow using helper command
+/complete-iteration iter-gpu-acceleration "GPU support complete"
+```
+
+This will:
+- Commit iteration files to git
+- Create git tag for historical reference
+- Prompt you to update PROGRESS.md
+
+### Managing Iteration History
+
+Keep **last 3-10 iterations** in filesystem for agent context:
+```bash
+# Archive old iterations (they're preserved in git)
+rm -rf iterations/iter-initial-setup/
+git add -A
+git commit -m "Archive: iter-initial-setup (preserved at git tag)"
+```
+
+### Accessing Historical Iterations
+
+Use built-in commands to access git-archived iterations:
+
+```bash
+# View recent work
+/display-recent-tags 5
+
+# Search for specific topics
+/search-iterations "GPU performance"
+
+# View detailed iteration info
+/show-iteration iter-type-system
+```
+
+### Workflow Summary
+
+1. **TDD Cycles**: `jl-tester` writes tests → `jl-implementer` makes them pass
+2. **Pair Programming**: Agents collaborate through pairing-artifacts/
+3. **Short Iterations**: Complete small features in days, not weeks
+4. **Living History**: Recent iterations visible, old ones in git tags
+5. **Continuous Feedback**: Retrospectives inform next iteration
 
 ## Directory Structure
 
 ```
-project-name-project/
-├── design/                          # Private design repository
-│   ├── 01-exploration/             # jl-explorer outputs
-│   ├── 02-critique/                # jl-critic outputs  
-│   └── 03-architecture/            # jl-implementer outputs
+project-name/
+├── PROGRESS.md                      # TODO tracking & current status
+├── iterations/                      # Short development cycles (XP iterations)
+│   ├── iter-gpu-acceleration/      # Active iteration (descriptive name!)
+│   │   ├── planning.md             # User story, acceptance criteria
+│   │   ├── test-failures.md        # RED phase - failing tests
+│   │   ├── implementation.md       # GREEN phase - make it work
+│   │   ├── refactor-notes.md       # REFACTOR phase - make it right
+│   │   └── retrospective.md        # What we learned
+│   ├── iter-data-validation/       # Keep last 3-10 iterations
+│   └── iter-type-system/           # Older ones archived in git
+├── pairing-artifacts/               # Collaboration records
+│   ├── tester-implementer/         # TDD pair session notes
+│   ├── critic-implementer/         # Code review pairing
+│   └── explorer-critic/            # Design discussion artifacts
+├── spikes/                          # Timeboxed research (XP practice)
+│   ├── spike-gpu-acceleration/
+│   └── spike-alternative-algo/
 ├── resources/                       # Private resources & references
 │   ├── code-examples/              # Reference implementations
 │   ├── documentation/              # Internal specs & research
 │   ├── data/                       # Test & benchmark datasets
 │   └── external/                   # Papers & competitor analysis
-├── dev-note/                       # Development memory system
+├── dev-note/                        # Development memory system
 │   ├── implementer-notes.md        # jl-implementer session memory
 │   ├── tester-insights.md          # jl-tester discoveries
 │   ├── session-log.md              # Cross-session continuity
 │   └── ideas-parking.md            # Future enhancement ideas
 ├── PackageName/                     # Public Julia package
 │   ├── src/                        # Package source code
-│   ├── test/                       # Test suite
+│   ├── test/                       # Test suite (TDD - tests first!)
 │   ├── docs/                       # Documenter.jl documentation
-│   └── Project.toml               # Package metadata
-└── CLAUDE.md                       # Project command center
+│   └── Project.toml                # Package metadata
+└── CLAUDE.md                        # Project command center
 ```

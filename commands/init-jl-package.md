@@ -1,6 +1,6 @@
 ---
-allowed-tools: Bash(julia --version), Bash(julia -e:*), Bash(test -d:*), Bash(mkdir -p:*), Bash(mv:*), Bash(git init:*), Write
-description: Initialize a comprehensive Julia package development environment optimized for Claude Code workflow. Creates a structured project with separate design/, resources/, and dev-note/ directories for multi-agent collaboration (jl-explorer, jl-critic, jl-implementer, jl-tester, jl-documenter). Includes CLAUDE.md to describe the project, session continuity support, and how to follow Julia community standards. Supports both creating new packages and wrapping existing ones.
+allowed-tools: Bash(julia --version), Bash(julia -e:*), Bash(test -d:*), Bash(mkdir -p:*), Bash(mv:*), Bash(git init:*), Bash(cat:*), Write
+description: Initialize a comprehensive Julia package development environment with XP workflow. Creates iterations/, pairing-artifacts/, spikes/ for XP iterations, plus resources/ and dev-note/ directories. Automatically generates PROGRESS.md for TODO tracking and CLAUDE.md as project command center. Supports creating new packages or wrapping existing ones.
 argument-hint: <PackageName> [Description]
 ---
 
@@ -34,10 +34,12 @@ test -d "$1.jl" && echo "EXISTS" || echo "NOT_EXISTS"`
 Create all required directories:
 
 ```bash
-# design
-mkdir -p design/01-exploration
-mkdir -p design/02-critique
-mkdir -p design/03-architecture
+# XP iteration structure
+mkdir -p iterations
+mkdir -p pairing-artifacts/tester-implementer
+mkdir -p pairing-artifacts/critic-implementer
+mkdir -p pairing-artifacts/explorer-critic
+mkdir -p spikes
 # resources
 mkdir -p resources/code-examples/similar-packages
 mkdir -p resources/code-examples/algorithms
@@ -73,6 +75,55 @@ echo "# Ideas Parking
 
 [Park future enhancement ideas here]" > dev-note/ideas-parking.md
 ```
+
+Create PROGRESS.md:
+
+```bash
+cat > PROGRESS.md << 'PROGRESS_EOF'
+# Project Progress
+
+*Current work tracked in: `iterations/iter-initial-setup/`*
+
+## TODO Backlog
+
+**Format:**
+\`\`\`
+### Task Name
+[tag]
+Why: Explanation of why this is needed
+\`\`\`
+
+**Available tags (sorted by typical importance):**
+
+| Tag | Definition | When to use |
+|-----|------------|-------------|
+| \`bug\` | Something is broken or incorrect | Crashes, errors, wrong behavior |
+| \`feature\` | New functionality | Adding new capabilities users can use |
+| \`perf\` | Performance optimization | Speed, memory, or efficiency improvements |
+| \`improvement\` | Enhance existing feature | Make something work better without changing core behavior |
+| \`refactor\` | Code restructuring | Clean up implementation without changing functionality |
+| \`test\` | Testing infrastructure | Test coverage, CI/CD, test tools |
+| \`docs\` | Documentation | README, guides, API docs, docstrings |
+| \`chore\` | Maintenance tasks | Dependencies, tooling, cleanup |
+
+*Note: Actual priority depends on context - a critical \`perf\` issue may be more urgent than a minor \`bug\`*
+
+---
+
+### Implement core functionality
+[feature]
+Why: Users need basic functionality to get started
+
+### Add test suite
+[test]
+Why: Need automated testing before accepting contributions
+
+### Write documentation
+[docs]
+Why: Help users understand how to use the package
+PROGRESS_EOF
+```
+
 Initialize git repositories:
 
 ```bash
@@ -105,20 +156,20 @@ See @$1.jl/README.md for project overview.
 ### Directory Structure
 ```
 project-root/
-├── design/                          # Private design repository
-│   ├── 01-exploration/             # jl-explorer outputs
-│   │   ├── ecosystem-analysis.md
-│   │   ├── competitive-landscape.md
-│   │   └── technical-requirements.md
-│   ├── 02-critique/                # jl-critic outputs  
-│   │   ├── design-review.md
-│   │   ├── risk-assessment.md
-│   │   └── claude-code-suitability.md
-│   └── 03-architecture/            # jl-implementer outputs
-│       ├── package-structure.md
-│       ├── api-design.md
-│       ├── type-system-design.md
-│       └── dependency-strategy.md
+├── PROGRESS.md                      # TODO backlog with tagged tasks
+├── iterations/                      # XP iteration cycles
+│   ├── iter-feature-name/          # Descriptive iteration names
+│   │   ├── planning.md             # User stories, tasks for this iteration
+│   │   ├── test-failures.md        # RED phase - failing tests
+│   │   ├── implementation.md       # GREEN phase - make tests pass
+│   │   ├── refactor-notes.md       # REFACTOR phase - improve code
+│   │   └── retrospective.md        # What we learned
+│   └── ...                         # Keep last 3-10, archive older ones
+├── pairing-artifacts/               # Pair programming collaboration
+│   ├── tester-implementer/         # TDD pair sessions
+│   ├── critic-implementer/         # Code review pairing
+│   └── explorer-critic/            # Design discussions
+├── spikes/                          # Timeboxed research experiments
 ├── resources/                       # Private resources & reference materials
 │   ├── code-examples/              # Reference implementations & snippets
 │   │   ├── similar-packages/       # Code from similar Julia packages
@@ -149,58 +200,62 @@ project-root/
 └── CLAUDE.md                       # This file - project command center
 ```
 
-### Agent Responsibilities & Directory Ownership
+### Agent Responsibilities - XP Workflow
 
-#### Phase 1: Design (Private Repository)
-- **jl-explorer**: Creates analysis in @design/01-exploration/ + leverages @resources/ for research
-- **jl-critic**: Reviews @design/01-exploration/ and writes critiques in @design/02-critique/
-- **jl-implementer**: Finalizes architecture in @design/03-architecture/ + uses @resources/code-examples/patterns/
-
-#### Phase 2-4: Development (Public Repository + Memory + Resources)
-- **jl-implementer**:
-  - Primary: @$1.jl/src/ directory
-  - Memory: @dev-note/implementer-notes.md
-  - Resources: Can reference @resources/code-examples/ and @resources/documentation/
-  - Can reference design/ outputs for guidance
-  
-- **jl-tester**:
-  - Primary: @$1.jl/test/ directory
+#### TDD Cycle (Red-Green-Refactor)
+- **jl-tester**: Writes failing tests FIRST in @$1.jl/test/, defines API through test expectations
+  - Documents test approach in @iterations/[current]/test-failures.md
   - Memory: @dev-note/tester-insights.md
-  - Resources: Can use @resources/data/test-cases/ for complex testing scenarios
-  - Does NOT modify @$1.jl/src/ - stays in testing domain
+  - Uses @resources/data/test-cases/ for complex scenarios
 
-- **jl-documenter**:
-  - Primary: @$1.jl/docs/ directory
-  - Secondary: @$1.jl/src/ (docstrings only)
-  - Resources: Can reference @resources/documentation/ for examples and templates
-  - Specializes in Documenter.jl workflow and implementation
+- **jl-implementer**: Makes tests pass in @$1.jl/src/, implements minimal code to satisfy tests
+  - Documents implementation in @iterations/[current]/implementation.md
+  - Documents refactoring in @iterations/[current]/refactor-notes.md
+  - Memory: @dev-note/implementer-notes.md
+  - References @resources/code-examples/patterns/
 
-#### All Agents: Resource Access Guidelines
-- **Read-only access** to @resources/ directory
-- Use resources for reference, inspiration, and validation
-- Do NOT modify or add files to @resources/ during development
-- Document useful resources found in your dev-note/ files for future reference
+- **jl-documenter**: Updates docs incrementally in @$1.jl/docs/ alongside implementation
+  - Living documentation - update with each iteration
+  - Adds docstrings to @$1.jl/src/ (only location documenter touches src/)
+  - Uses @resources/documentation/ for templates
+
+#### Just-in-Time Research & Review
+- **jl-explorer**: Quick ecosystem research for current iteration needs
+  - Stores findings in @spikes/ or @pairing-artifacts/explorer-critic/
+  - Uses @resources/ for reference materials
+
+- **jl-critic**: Reviews design decisions and code quality during iterations
+  - Collaboration notes in @pairing-artifacts/critic-implementer/
+  - Evaluates architectural options before tests are written
+
+#### Iteration Management
+- Current iteration planning: @iterations/[current]/planning.md
+- Backlog: @PROGRESS.md with tagged TODOs
+- Retrospectives: @iterations/[current]/retrospective.md
+- Keep last 3-10 iterations, archive older ones to git tags
 
 ### Cross-Session Continuity Protocol
 
 #### Session Startup Routine
-1. **Read this CLAUDE.md** for project overview and current status
-2. **Check @dev-note/session-log.md** for last session context
-3. **Review your agent-specific notes** in dev-note/
-4. **Reference design/ outputs** if needed for requirements
-5. **Explore relevant resources/** for additional context
-6. **Begin work** with full context restored
+1. **Read this CLAUDE.md** for project overview
+2. **Check @PROGRESS.md** to see current iteration and backlog
+3. **Read @iterations/[current]/planning.md** for current tasks
+4. **Check @dev-note/session-log.md** for last session context
+5. **Review your agent-specific notes** in dev-note/
+6. **Check recent @iterations/ retrospectives** for learnings
+7. **Begin work** with full context restored
 
 #### Session Ending Routine
-1. **Update your agent-specific dev-note/ file** with progress and insights
-2. **Update @dev-note/session-log.md** with session summary
-3. **Document useful resources** discovered during work
+1. **Update current iteration files** (planning.md, implementation.md, etc.)
+2. **Update your agent-specific dev-note/ file** with progress and insights
+3. **Update @dev-note/session-log.md** with session summary
+4. **Update @PROGRESS.md** if completing tasks or iteration
 
 #### Cross-Agent Communication
-- Leave notes for other agents in your @dev-note/ files
-- Check other agents' notes before starting your work
-- Reference shared @resources/ for common understanding
-- Coordinate through @dev-note/ rather than direct file conflicts
+- **Pairing notes**: Use @pairing-artifacts/ for collaboration records
+- **Agent memory**: Check @dev-note/ for agent-specific insights
+- **Iteration context**: Current work tracked in @iterations/[current]/
+- **Research findings**: Store in @spikes/ or @pairing-artifacts/
 
 ## Development Guidelines
 
@@ -216,24 +271,26 @@ Each specialized agent has detailed expertise and guidelines. Refer to their pro
 
 ### Context Management
 - Always reference this CLAUDE.md first for project understanding
+- Check @PROGRESS.md for current iteration and TODO backlog
+- Current work tracked in @iterations/[current]/ directory
 - Use @dev-note/ files to maintain context across sessions
-- Leverage @design/ outputs for architectural decisions
 - Explore @resources/ for additional context and examples
-- Keep public package clean and professional
+- Check @pairing-artifacts/ for collaboration notes
+- Review recent @iterations/ retrospectives for learnings
 
-### Subagent Coordination
-- Each agent has clear directory ownership boundaries
-- Cross-agent communication happens through @dev-note/ files
-- No direct file conflicts - each agent stays in their domain
-- jl-implementer is the only agent modifying core @$1.jl/src/ functionality
-- All agents can reference @resources/ for additional context
+### XP Workflow
+- **Test-first**: jl-tester writes failing tests, jl-implementer makes them pass
+- **Pair programming**: Agents collaborate through pairing-artifacts/
+- **Short iterations**: Complete features in days, tracked in iterations/
+- **Continuous refactoring**: Document in refactor-notes.md
+- **Living documentation**: jl-documenter updates incrementally
 
 ### Quality Gates
 - All public code follows Julia community standards
-- Private design process can include experimental approaches
+- Experimental approaches documented in spikes/ and pairing-artifacts/
 - REPL experience is prioritized throughout development
-- Performance is considered from architectural level
-- Resources are used for validation and inspiration
+- Performance considered from iteration planning
+- Retrospectives capture learnings for continuous improvement
 
 ```
 

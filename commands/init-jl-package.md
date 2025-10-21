@@ -213,7 +213,10 @@ project-root/
   - Uses @resources/documentation/ for templates
 
 #### Just-in-Time Research & Review
-- **jl-explorer**: Quick ecosystem research for current iteration needs
+- **jl-explorer**: Task decomposition and quick ecosystem research
+  - Breaks complex requests into small, independent iterations (1-3 days each)
+  - Identifies which subtasks are independent vs. dependent
+  - Conducts just-in-time research for current iteration needs
   - Stores findings in @spikes/
   - Uses @resources/ for reference materials
 
@@ -256,7 +259,7 @@ Each specialized agent has detailed expertise and guidelines. Refer to their pro
 - **Code standards, REPL philosophy, error handling, display policy**: See jl-implementer agent
 - **Testing strategy and comprehensive test suite implementation**: See jl-tester agent
 - **Documentation with Documenter.jl and docstring standards**: See jl-documenter agent
-- **Ecosystem exploration and competitive analysis**: See jl-explorer agent
+- **Task decomposition, iteration planning, and ecosystem exploration**: See jl-explorer agent
 - **Design critique and AI-assisted development suitability**: See jl-critic agent
 
 ## Notes for Claude Code Usage

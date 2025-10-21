@@ -10,8 +10,8 @@ This template adapts Extreme Programming practices for AI-assisted Julia package
 
 - **Test-Driven Development (TDD)**: The jl-tester agent writes tests first, defining the API through test expectations. The jl-implementer then makes those tests pass with minimal code.
 - **Role-Based TDD Workflow**: Different agents provide focused perspectives for each phase - jl-tester enforces test-first discipline (RED), jl-implementer focuses on minimal implementation (GREEN) and refactoring, jl-critic provides architectural review. This structured approach ensures separation of concerns and disciplined development.
-- **Simple Design**: The jl-explorer focuses on just-in-time research for immediate needs rather than exhaustive upfront analysis, following YAGNI (You Aren't Gonna Need It).
-- **Short Iteration Cycles**: All agents work together in rapid cycles on small features rather than sequential waterfall phases.
+- **Simple Design**: The jl-explorer decomposes complex requests into small iterations and focuses on just-in-time research for immediate needs rather than exhaustive upfront analysis, following YAGNI (You Aren't Gonna Need It).
+- **Short Iteration Cycles**: The jl-explorer breaks large features into independent, iteration-sized subtasks (1-3 days each), enabling rapid cycles and incremental delivery.
 - **Living Documentation**: The jl-documenter updates documentation incrementally with each change, keeping it synchronized with the code.
 
 ## Features

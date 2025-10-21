@@ -6,8 +6,6 @@ CLAUDE.md
 # .claude directory axcept for .claude/agents/
 .claude/*
 !.claude/agents
-
-# dev-note: Continously changing space 
+ 
 # resources: data repository
-dev-note/
 resources/

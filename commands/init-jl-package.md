@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(julia --version), Bash(julia -e:*), Bash(test -d:*), Bash(mkdir -p:*), Bash(mv:*), Bash(git init:*), Bash(cat:*), Write
-description: Initialize a comprehensive Julia package development environment with XP workflow. Creates iterations/, pairing-artifacts/, spikes/ for XP iterations, plus resources/ and dev-note/ directories. Automatically generates PROGRESS.md for TODO tracking and CLAUDE.md as project command center. Supports creating new packages or wrapping existing ones.
+description: Initialize a comprehensive Julia package development environment with XP workflow. Creates iterations/, pairing-artifacts/, spikes/ for XP iterations, plus resources/ directory. Automatically generates PROGRESS.md for TODO tracking and CLAUDE.md as project command center. Supports creating new packages or wrapping existing ones.
 argument-hint: <PackageName> [Description]
 ---
 
@@ -49,28 +49,6 @@ mkdir -p resources/data/validation-data
 mkdir -p resources/external/papers
 mkdir -p resources/external/reference-libs
 mkdir -p resources/external/competitor-analysis
-# dev-note
-mkdir -p dev-note
-```
-
-Create dev-note template files:
-
-```bash
-echo "# jl-implementer Development Notes
-
-[Track implementation progress here]" > dev-note/implementer-notes.md
-
-echo "# jl-tester Insights
-
-[Track testing discoveries here]" > dev-note/tester-insights.md
-
-echo "# Session Log
-
-[Track cross-session continuity here]" > dev-note/session-log.md
-
-echo "# Ideas Parking
-
-[Park future enhancement ideas here]" > dev-note/ideas-parking.md
 ```
 
 Create PROGRESS.md:
@@ -179,11 +157,6 @@ project-root/
 │       ├── papers/                 # Academic papers & research materials
 │       ├── reference-libs/         # External library code for reference
 │       └── competitor-analysis/    # Analysis of competing solutions
-├── dev-note/                       # Development memory & ideas storage
-│   ├── implementer-notes.md        # jl-implementer progress & ideas
-│   ├── tester-insights.md          # jl-tester discoveries & patterns
-│   ├── session-log.md              # Cross-session continuity tracking
-│   └── ideas-parking.md            # Future enhancement ideas & inspiration
 ├── $1.jl/                          # Public Julia package repository
 │   ├── src/                        # jl-implementer responsibility
 │   ├── test/                       # jl-tester responsibility
@@ -198,13 +171,11 @@ project-root/
 #### TDD Cycle (Red-Green-Refactor)
 - **jl-tester**: Writes failing tests FIRST in @$1.jl/test/, defines API through test expectations
   - Documents test approach in @iterations/[current]/test-failures.md
-  - Memory: @dev-note/tester-insights.md
   - Uses @resources/data/test-cases/ for complex scenarios
 
 - **jl-implementer**: Makes tests pass in @$1.jl/src/, implements minimal code to satisfy tests
   - Documents implementation in @iterations/[current]/implementation.md
   - Documents refactoring in @iterations/[current]/refactor-notes.md
-  - Memory: @dev-note/implementer-notes.md
   - References @resources/code-examples/patterns/
 
 - **jl-documenter**: Updates docs incrementally in @$1.jl/docs/ alongside implementation
@@ -236,19 +207,14 @@ project-root/
 1. **Read this CLAUDE.md** for project overview
 2. **Check @PROGRESS.md** to see current iteration and backlog
 3. **Read @iterations/[current]/planning.md** for current tasks
-4. **Check @dev-note/session-log.md** for last session context
-5. **Review your agent-specific notes** in dev-note/
-6. **Check recent @iterations/ retrospectives** for learnings
-7. **Begin work** with full context restored
+4. **Check recent @iterations/ retrospectives** for learnings
+5. **Begin work** with full context restored
 
 #### Session Ending Routine
 1. **Update current iteration files** (planning.md, implementation.md, etc.)
-2. **Update your agent-specific dev-note/ file** with progress and insights
-3. **Update @dev-note/session-log.md** with session summary
-4. **Update @PROGRESS.md** if completing tasks or iteration
+2. **Update @PROGRESS.md** if completing tasks or iteration
 
 #### Cross-Agent Communication
-- **Agent memory**: Check @dev-note/ for agent-specific insights
 - **Iteration context**: Current work tracked in @iterations/[current]/
 - **Research findings**: Store in @spikes/
 
@@ -268,7 +234,6 @@ Each specialized agent has detailed expertise and guidelines. Refer to their pro
 - Always reference this CLAUDE.md first for project understanding
 - Check @PROGRESS.md for current iteration and TODO backlog
 - Current work tracked in @iterations/[current]/ directory
-- Use @dev-note/ files to maintain context across sessions
 - Explore @resources/ for additional context and examples
 - Check @pairing-artifacts/ for collaboration notes
 - Review recent @iterations/ retrospectives for learnings

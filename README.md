@@ -21,7 +21,6 @@ This template adapts Extreme Programming practices for AI-assisted Julia package
 - **XP-based workflow** promoting TDD, continuous refactoring, and short feedback loops
 - **Private design repository** for internal development processes
 - **Resources directory** for reference materials and private assets
-- **Session continuity** through dev-note/ memory system
 
 ## Quick Start
 
@@ -48,7 +47,6 @@ Use the `/init-jl-package` command in Claude Code:
 This will:
 - Set up the XP iteration structure (iterations/, pairing-artifacts/, spikes/)
 - Automatically create PROGRESS.md for TODO tracking
-- Initialize dev-note/ for session continuity
 - Generate CLAUDE.md as project command center
 - Set up your Julia package structure (if creating new)
 
@@ -143,11 +141,6 @@ project-name/
 │   ├── documentation/              # Internal specs & research
 │   ├── data/                       # Test & benchmark datasets
 │   └── external/                   # Papers & competitor analysis
-├── dev-note/                        # Development memory system
-│   ├── implementer-notes.md        # jl-implementer session memory
-│   ├── tester-insights.md          # jl-tester discoveries
-│   ├── session-log.md              # Cross-session continuity
-│   └── ideas-parking.md            # Future enhancement ideas
 ├── PackageName/                     # Public Julia package
 │   ├── src/                        # Package source code
 │   ├── test/                       # Test suite (TDD - tests first!)

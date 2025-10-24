@@ -2,7 +2,7 @@
 
 A comprehensive project template for Julia package development using Claude Code with specialized subagents, designed around Extreme Programming (XP) principles for AI-assisted development.
 
-This is working in progress.
+This is a work in progress.
 
 ## Philosophy: Extreme Programming for AI Development
 
@@ -28,7 +28,7 @@ This template adapts Extreme Programming practices for AI-assisted Julia package
 
 ```bash
 # Clone the template repository
-git clone https://github.com/eghus/julia-claude-code-template.git my-julia-template
+git clone https://github.com/ehgus/julia-claude-code-template.git my-julia-template
 cd my-julia-template
 ```
 

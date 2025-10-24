@@ -3,7 +3,7 @@
 # CLAUDE.md
 CLAUDE.md
 
-# .claude directory axcept for .claude/agents/
+# .claude directory except for .claude/agents/
 .claude/*
 !.claude/agents
  

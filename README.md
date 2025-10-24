@@ -58,6 +58,49 @@ mkdir iterations/iter-initial-setup
 # Edit PROGRESS.md and add your TODOs, then start working!
 ```
 
+## Example: Building a Matrix Library with TDD
+
+Here's a complete example of building a small feature using the agent workflow:
+
+```bash
+# 1. Initialize the package
+/init-jl-package MatrixOps "Fast matrix operations library"
+
+# 2. User asks: "I want to add matrix decomposition with QR and LU methods"
+
+# 3. Claude uses jl-explorer to decompose the task:
+# - Iteration 1: QR decomposition (independent, 2-3 days)
+# - Iteration 2: LU decomposition (independent, can be parallel)
+
+# 4. Start first iteration
+mkdir iterations/iter-qr-decomposition
+
+# 5. Claude uses jl-tester to write failing tests in MatrixOps.jl/test/
+# Tests define the API: qr_decompose(A) returns Q, R matrices
+
+# 6. Tests fail (RED phase) - documented in iterations/iter-qr-decomposition/test-failures.md
+
+# 7. Claude uses jl-implementer to implement in MatrixOps.jl/src/
+# Minimal code to pass tests (GREEN phase)
+
+# 8. jl-implementer refactors for Julia idioms (REFACTOR phase)
+
+# 9. jl-documenter adds docstrings and updates docs/
+
+# 10. Complete the iteration
+/complete-iteration iter-qr-decomposition "QR decomposition with 98% test coverage"
+
+# 11. Start next iteration for LU decomposition
+# Repeat the cycle!
+```
+
+**Key Points:**
+- Each agent focuses on their specialty (testing, implementation, documentation)
+- Tests written BEFORE implementation (TDD discipline)
+- Small iterations (days, not weeks)
+- Documentation updated incrementally
+- Git history preserves all iterations
+
 ## XP Iteration Workflow
 
 The template follows **Extreme Programming (XP)** principles with short iteration cycles:

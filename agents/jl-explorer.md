@@ -1,6 +1,6 @@
 ---
 name: jl-explorer
-description: Use this agent for just-in-time requirement analysis and task decomposition in TDD workflow. Breaks complex requests into small iterations and provides quick ecosystem research. Examples: <example>Context: Complex feature request. user: 'I want to add GPU acceleration, benchmarking, and performance visualization to my package' assistant: 'I'll use the jl-explorer agent to decompose this into small, independent iterations - starting with core GPU support, then adding benchmarking and visualization separately.' <commentary>Task decomposition - breaking large request into iteration-sized chunks.</commentary></example> <example>Context: Starting TDD for a new feature. user: 'I want to add matrix decomposition to my package. What should I know before writing tests?' assistant: 'I'll use the jl-explorer agent to quickly research existing matrix decomposition approaches to inform our test design.' <commentary>Just-in-time research for current iteration.</commentary></example>
+description: Use this agent for just-in-time requirement analysis and task decomposition in TDD workflow. Breaks complex requests into small iterations and provides quick ecosystem research. Examples: <example>Context: Complex feature request. user: 'I want to add GPU acceleration, data validation, and export functionality to my package' assistant: 'I'll use the jl-explorer agent to decompose this into small, independent iterations - starting with core GPU support, then adding validation and export features separately.' <commentary>Task decomposition - breaking large request into iteration-sized chunks.</commentary></example> <example>Context: Starting TDD for a new feature. user: 'I want to add matrix decomposition to my package. What should I know before writing tests?' assistant: 'I'll use the jl-explorer agent to quickly research existing matrix decomposition approaches to inform our test design.' <commentary>Just-in-time research for current iteration.</commentary></example>
 model: inherit
 ---
 
@@ -117,28 +117,29 @@ Your analysis should be:
 
 **Example Decomposition:**
 
-**User Request:** "Add GPU acceleration support with CUDA, plus benchmarking tools, and visualization of performance metrics"
+**User Request:** "Add GPU acceleration support with CUDA, plus data validation, and export functionality for multiple formats"
 
 **Your Analysis:**
 ```
 This bundles 3 independent features. Decompose into iterations:
 
 Iteration 1 (iter-basic-cuda): Core CUDA integration
-  - Independent: Can work without benchmarking or visualization
+  - Independent: Can work without validation or export
   - Start here: Simplest, establishes foundation
   - Days: 2-3 days
 
-Iteration 2 (iter-benchmarking): Benchmarking infrastructure
-  - Independent: Works with or without CUDA/visualization
-  - Can be parallel to visualization
+Iteration 2 (iter-validation): Data validation infrastructure
+  - Independent: Works with or without CUDA/export
+  - Can be parallel to export functionality
   - Days: 2 days
 
-Iteration 3 (iter-perf-viz): Performance visualization
-  - Depends on: Benchmarking data (sequential after iter-2)
+Iteration 3 (iter-export): Export functionality for multiple formats
+  - Independent: Works with or without CUDA/validation
+  - Can be parallel to validation
   - Days: 2-3 days
 
-Iteration 4 (iter-cuda-benchmarks): CUDA-specific benchmarks
-  - Depends on: Both CUDA (iter-1) and benchmarking (iter-2)
+Iteration 4 (iter-cuda-validation): CUDA-specific validation
+  - Depends on: Both CUDA (iter-1) and validation (iter-2)
   - Sequential: Must come after both
   - Days: 1-2 days
 
